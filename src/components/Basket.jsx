@@ -203,42 +203,59 @@ export default function GroceryMonitor() {
                         <DialogTitle><Pencil className="h-5 w-5 mr-2" />Edit Item</DialogTitle>
                     </DialogHeader>
                     {editingItem && (
-                        <div className="space-y-4">
-                            <Input
-                                type="text"
-                                value={editingItem.name}
-                                onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })}
-                            />
-                            <Input
-                                type="number"
-                                value={editingItem.price}
-                                onChange={(e) => setEditingItem({ ...editingItem, price: parseFloat(e.target.value) || 0 })}
-                            />
-                            <div className="flex items-center space-x-2">
-                                <Button variant="outline" size="icon" onClick={() => setEditingItem({ ...editingItem, quantity: Math.max(1, editingItem.quantity - 1) })}>
-                                    <Minus className="h-4 w-4" />
-                                </Button>
+                        <div className="grid gap-y-3">
+                            <div>
+                                <label htmlFor="" className='text-[10px] uppercase font-bold ml-[2px] mb-2 inline-block'>Item Name</label>
                                 <Input
-                                    type="number"
-                                    value={editingItem.quantity}
-                                    onChange={(e) => setEditingItem({ ...editingItem, quantity: Math.max(1, parseInt(e.target.value) || 0) })}
-                                    className="w-16 text-center"
-                                    min="1"
+                                    type="text"
+                                    value={editingItem.name}
+                                    onChange={(e) => setEditingItem({ ...editingItem, name: e.target.value })}
                                 />
-                                <Button variant="outline" size="icon" onClick={() => setEditingItem({ ...editingItem, quantity: editingItem.quantity + 1 })}>
-                                    <Plus className="h-4 w-4" />
-                                </Button>
                             </div>
-                            <p className="text-sm text-gray-500 flex items-center">
-                                Total: <PhilippinePeso className='h-3 w-3 ml-3 mr-0' /> {(editingItem.price * editingItem.quantity).toFixed(2)}
+                            <div className='flex items-center gap-x-3'>
+                                <div>
+                                    <label htmlFor="" className='text-[10px] uppercase font-bold ml-[2px] mb-2 inline-block'>Price</label>
+                                    <Input
+                                        type="number"
+                                        value={editingItem.price}
+                                        onChange={(e) => setEditingItem({ ...editingItem, price: parseFloat(e.target.value) || 0 })}
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="" className='text-[10px] uppercase font-bold ml-[2px] mb-2 inline-block'>QTY</label>
+                                    <div className="flex items-center gap-x-1">
+                                        <Button variant="outline" size="icon" onClick={() => setEditingItem({ ...editingItem, quantity: Math.max(1, editingItem.quantity - 1) })}>
+                                            <Minus className="h-4 w-4" />
+                                        </Button>
+                                        <Input
+                                            type="number"
+                                            value={editingItem.quantity}
+                                            onChange={(e) => setEditingItem({ ...editingItem, quantity: Math.max(1, parseInt(e.target.value) || 0) })}
+                                            className="w-16 text-center"
+                                            min="1"
+                                        />
+                                        <Button variant="outline" size="icon" onClick={() => setEditingItem({ ...editingItem, quantity: editingItem.quantity + 1 })}>
+                                            <Plus className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p className="text-md flex flex-row items-center justify-between mt-2">
+                                <span className='text-[10px] uppercase font-bold ml-[2px]'>Total:</span> 
+                                <div className='flex items-center font-bold'>
+                                    <PhilippinePeso className='h-4 w-4 mr-1' strokeWidth={2.5} /> {(editingItem.price * editingItem.quantity).toFixed(2)}
+                                </div>
                             </p>
                         </div>
                     )}
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => editingItem && deleteItem(editingItem.id)}>
-                            <Trash2 className="h-4 w-4 mr-2" />Delete
-                        </Button>
-                        <Button onClick={saveEditedItem}><Save className="h-4 w-4 mr-2" />Save</Button>
+                        <div className='grid grid-cols-2 gap-x-2'>
+                            <Button variant="outline" onClick={() => editingItem && deleteItem(editingItem.id)}>
+                                <Trash2 className="h-4 w-4 mr-2" />Delete
+                            </Button>
+                            <Button onClick={saveEditedItem}><Save className="h-4 w-4 mr-2" />Save</Button>
+                        </div>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
