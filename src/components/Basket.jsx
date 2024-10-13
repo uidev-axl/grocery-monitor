@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { Plus, Minus, Undo, Redo, Eraser, Save, Pencil, Trash2 } from 'lucide-react'
+import { Plus, Minus, Undo, Redo, Eraser, Save, Pencil, Trash2, ShoppingBag } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -83,7 +83,7 @@ export default function GroceryMonitor() {
             </header>
 
             {/* Main Content */}
-            <main className="flex-grow p-4 overflow-y-auto">
+            <main className="flex flex-col flex-grow p-4 overflow-y-auto">
                 {/* Undo/Redo Buttons */}
                 <div className="flex justify-end mb-4 space-x-2">
                     <Button variant="outline" size="sm" onClick={undo} disabled={history.length === 0}>
@@ -134,20 +134,24 @@ export default function GroceryMonitor() {
                 </ul>
 
                 {/* Add New Item Form */}
-                <div className="@container bg-white p-4 rounded-lg shadow mb-20">
-                    <h2 className="text-lg font-semibold mb-2">Add New Item</h2>
-                    <div className="flex flex-col @sm:flex-row gap-2">
+                <div className="@container bg-white p-4 rounded-lg shadow mb-1 mt-auto">
+                    <h2 className="flex items-center text-lg font-semibold mb-2">
+                        <ShoppingBag className="h-5 mr-2" /> Add New Item
+                    </h2>
+                    <div className="grid grid-cols-1 @xs:grid-cols-4 @lg:grid-cols-6 gap-2">
                         <Input
                             type="text"
                             placeholder="Item name"
                             value={newItem.name}
                             onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+                            className='@xs:col-span-full @lg:col-span-2'
                         />
                         <Input
                             type="number"
                             placeholder="Price"
                             value={newItem.price || ''}
                             onChange={(e) => setNewItem({ ...newItem, price: parseFloat(e.target.value) || 0 })}
+                            className='@xs:col-span-2'
                         />
                         <Input
                             type="number"
@@ -157,7 +161,7 @@ export default function GroceryMonitor() {
                             min="1"
                         />
                         <Button onClick={addItem}>
-                            <Plus className="h-4 w-4 mr-3" />
+                            <Plus className="h-4 w-4 mr-1.5" />
                             Add
                         </Button>
                     </div>
