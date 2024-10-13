@@ -27,7 +27,7 @@ export default function GroceryMonitor() {
     }, [items])
 
     const addItem = useCallback(() => {
-        if (newItem.name && newItem.price > 0) {
+        if (newItem.name && newItem.price > 0 && newItem.quantity > 0) {
             updateItemsWithHistory([...items, { ...newItem, id: Date.now() }])
             setNewItem({ name: '', price: 0, quantity: 1 })
         }
@@ -134,9 +134,9 @@ export default function GroceryMonitor() {
                 </ul>
 
                 {/* Add New Item Form */}
-                <div className="bg-white p-4 rounded-lg shadow mb-20">
+                <div className="@container bg-white p-4 rounded-lg shadow mb-20">
                     <h2 className="text-lg font-semibold mb-2">Add New Item</h2>
-                    <div className="flex flex-col sm:flex-row gap-2">
+                    <div className="flex flex-col @sm:flex-row gap-2">
                         <Input
                             type="text"
                             placeholder="Item name"
@@ -153,7 +153,7 @@ export default function GroceryMonitor() {
                             type="number"
                             placeholder="Quantity"
                             value={newItem.quantity}
-                            onChange={(e) => setNewItem({ ...newItem, quantity: parseInt(e.target.value) || 1 })}
+                            onChange={(e) => setNewItem({ ...newItem, quantity: parseInt(e.target.value) || '' })}
                             min="1"
                         />
                         <Button onClick={addItem}>
