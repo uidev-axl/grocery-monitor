@@ -1,7 +1,19 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { Plus, Minus, Undo, Redo, Eraser, Save, Pencil, Trash2 } from 'lucide-react'
+import { 
+    Plus, 
+    Minus, 
+    Undo, 
+    Redo, 
+    Eraser, 
+    Save, 
+    Pencil, 
+    Trash2, 
+    ShoppingBag, 
+    ShoppingBasket,
+    PhilippinePeso
+} from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -27,7 +39,7 @@ export default function GroceryMonitor() {
     }, [items])
 
     const addItem = useCallback(() => {
-        if (newItem.name && newItem.price > 0) {
+        if (newItem.name && newItem.price > 0 && newItem.quantity > 0) {
             updateItemsWithHistory([...items, { ...newItem, id: Date.now() }])
             setNewItem({ name: '', price: 0, quantity: 1 })
         }
@@ -75,7 +87,7 @@ export default function GroceryMonitor() {
         <div className="min-h-screen flex flex-col bg-gray-100">
             {/* Sticky Header */}
             <header className="sticky top-0 bg-white shadow-md p-4 flex justify-between items-center z-10">
-                <h1 className="text-xl font-bold text-primary">Grocery Monitor</h1>
+                <h1 className="text-lg font-bold text-primary flex items-center"><ShoppingBasket className='mr-2' /> Basket Monitor</h1>
                 <div className="space-x-2">
                     <Button variant="outline" size="sm">Login</Button>
                     <Button size="sm">Sign Up</Button>
@@ -83,16 +95,14 @@ export default function GroceryMonitor() {
             </header>
 
             {/* Main Content */}
-            <main className="flex-grow p-4 overflow-y-auto">
+            <main className="flex flex-col flex-grow p-4 overflow-y-auto">
                 {/* Undo/Redo Buttons */}
                 <div className="flex justify-end mb-4 space-x-2">
                     <Button variant="outline" size="sm" onClick={undo} disabled={history.length === 0}>
-                        <Undo className="h-4 w-4 mr-2" />
-                        Undo
+                        <Undo className="h-4 w-4 mr-2" /> Undo
                     </Button>
                     <Button variant="outline" size="sm" onClick={redo} disabled={future.length === 0}>
-                        <Redo className="h-4 w-4 mr-2" />
-                        Redo
+                        <Redo className="h-4 w-4 mr-2" /> Redo
                     </Button>
                 </div>
 
@@ -106,10 +116,12 @@ export default function GroceryMonitor() {
                         >
                             <div>
                                 <h3 className="font-semibold">{item.name}</h3>
-                                <p className="text-xs text-gray-500">PHP {item.price.toFixed(2)}</p>
+                                <p className="text-xs text-gray-500 flex items-center"><PhilippinePeso className='h-3 w-3 mr-1' /> {item.price.toFixed(2)}</p>
                             </div>
                             <div className="flex items-center space-x-2">
-                                <p className="text-md font-semibold mr-4">PHP {(item.price * item.quantity).toFixed(2)}</p>
+                                <p className="text-md font-semibold mr-4 flex items-center">
+                                    <PhilippinePeso className='h-4 w-4 mr-1' /> {(item.price * item.quantity).toFixed(2)}
+                                </p>
 
                                 <div className='flex items-center' onClick={(e) => e.stopPropagation()}>
                                     <Button
@@ -134,30 +146,34 @@ export default function GroceryMonitor() {
                 </ul>
 
                 {/* Add New Item Form */}
-                <div className="bg-white p-4 rounded-lg shadow mb-20">
-                    <h2 className="text-lg font-semibold mb-2">Add New Item</h2>
-                    <div className="flex flex-col sm:flex-row gap-2">
+                <div className="@container bg-white p-4 rounded-lg shadow mb-1 mt-auto">
+                    <h2 className="flex items-center text-md font-semibold mb-2">
+                        <ShoppingBag className="h-5 mr-2" /> Add New Item
+                    </h2>
+                    <div className="grid grid-cols-1 @xs:grid-cols-4 @lg:grid-cols-6 gap-2">
                         <Input
                             type="text"
                             placeholder="Item name"
                             value={newItem.name}
                             onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+                            className='@xs:col-span-full @lg:col-span-2'
                         />
                         <Input
                             type="number"
                             placeholder="Price"
                             value={newItem.price || ''}
                             onChange={(e) => setNewItem({ ...newItem, price: parseFloat(e.target.value) || 0 })}
+                            className='@xs:col-span-2'
                         />
                         <Input
                             type="number"
                             placeholder="Quantity"
                             value={newItem.quantity}
-                            onChange={(e) => setNewItem({ ...newItem, quantity: parseInt(e.target.value) || 1 })}
+                            onChange={(e) => setNewItem({ ...newItem, quantity: parseInt(e.target.value) || '' })}
                             min="1"
                         />
                         <Button onClick={addItem}>
-                            <Plus className="h-4 w-4 mr-3" />
+                            <Plus className="h-4 w-4 mr-2" />
                             Add
                         </Button>
                     </div>
@@ -166,12 +182,17 @@ export default function GroceryMonitor() {
 
             {/* Sticky Footer */}
             <footer className="sticky bottom-0 bg-white shadow-md p-4 flex justify-between items-center">
-                <div className="text-lg font-semibold">Total: PHP {totalPrice.toFixed(2)}</div>
+                <div className="text-lg font-semibold flex flex-col justify-start items-start">
+                    <small className='text-[10px] uppercase font-semibold leading-none'>Total</small>
+                    <span className='text-xl flex items-center'>
+                        <PhilippinePeso className='h-5 w-5 mr-1' /> {totalPrice.toFixed(2)}
+                    </span>
+                </div>
                 <div className="space-x-2">
                     <Button variant="outline" onClick={() => updateItemsWithHistory([])}>
-                        <Eraser className="h-4 w-4 mr-3" />Clear
+                        <Eraser className="h-4 w-4 mr-2" />Clear
                     </Button>
-                    <Button><Save className="h-4 w-4 mr-3" />Save</Button>
+                    <Button><Save className="h-4 w-4 mr-2" />Save</Button>
                 </div>
             </footer>
 
@@ -179,7 +200,7 @@ export default function GroceryMonitor() {
             <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle><Pencil className="h-5 w-5 mr-3" />Edit Item</DialogTitle>
+                        <DialogTitle><Pencil className="h-5 w-5 mr-2" />Edit Item</DialogTitle>
                     </DialogHeader>
                     {editingItem && (
                         <div className="space-y-4">
@@ -208,14 +229,16 @@ export default function GroceryMonitor() {
                                     <Plus className="h-4 w-4" />
                                 </Button>
                             </div>
-                            <p className="text-sm text-gray-500">Total: PHP {(editingItem.price * editingItem.quantity).toFixed(2)}</p>
+                            <p className="text-sm text-gray-500 flex items-center">
+                                Total: <PhilippinePeso className='h-3 w-3 ml-3 mr-0' /> {(editingItem.price * editingItem.quantity).toFixed(2)}
+                            </p>
                         </div>
                     )}
                     <DialogFooter>
                         <Button variant="outline" onClick={() => editingItem && deleteItem(editingItem.id)}>
-                            <Trash2 className="h-4 w-4 mr-3" />Delete
+                            <Trash2 className="h-4 w-4 mr-2" />Delete
                         </Button>
-                        <Button onClick={saveEditedItem}><Save className="h-4 w-4 mr-3" />Save</Button>
+                        <Button onClick={saveEditedItem}><Save className="h-4 w-4 mr-2" />Save</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
