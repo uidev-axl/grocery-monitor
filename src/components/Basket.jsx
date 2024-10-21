@@ -39,6 +39,7 @@ export default function GroceryMonitor() {
     const [editingItem, setEditingItem] = useState(null)
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+    const [isClearModalOpen, setIsClearModalOpen] = useState(false)
     const [history, setHistory] = useState([])
     const [future, setFuture] = useState([])
 
@@ -98,7 +99,7 @@ export default function GroceryMonitor() {
         <div className="min-h-screen flex flex-col bg-gray-100">
             {/* Sticky Header */}
             <header className="sticky top-0 bg-white shadow-md p-4 flex justify-between items-center z-10">
-                <h1 className="text-lg font-bold text-primary flex items-center"><ShoppingBasket className='mr-2' /> Basket Monitor</h1>
+                <h1 className="text-md font-bold text-primary flex items-center"><ShoppingBasket className='mr-2' /> Basket Monitor</h1>
                 <div className="space-x-2">
                     <Button variant="outline" size="sm">Login</Button>
                     <Button size="sm">Sign Up</Button>
@@ -169,10 +170,12 @@ export default function GroceryMonitor() {
                     </span>
                 </div>
                 <div className="space-x-2">
-                    <Button variant="outline" onClick={() => updateItemsWithHistory([])}>
+                    <Button variant="outline" onClick={() => setIsClearModalOpen(true)} disabled={items.length < 1} >
                         <Eraser className="h-4 w-4 mr-2" />Clear
                     </Button>
-                    <Button><Save className="h-4 w-4 mr-2" />Save</Button>
+                    <Button>
+                        <Save className="h-4 w-4 mr-2" />Save
+                    </Button>
                 </div>
             </footer>
 
@@ -292,6 +295,28 @@ export default function GroceryMonitor() {
                                 <Trash2 className="h-4 w-4 mr-2" />Delete
                             </Button>
                             <Button onClick={saveEditedItem}><Save className="h-4 w-4 mr-2" />Save</Button>
+                        </div>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Clear All Modal */}
+            <Dialog open={isClearModalOpen} onOpenChange={setIsClearModalOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle><Eraser className="h-5 w-5 mr-2" />Clear All Items</DialogTitle>
+                    </DialogHeader>
+
+                    Are you sure you want to clear all items? You can revert this action by tapping the undo button.
+
+                    <DialogFooter>
+                        <div className='grid @xs:grid-cols-2 gap-x-2 gap-y-2'>
+                            <Button variant="outline" onClick={() => setIsClearModalOpen(false)}>
+                                <X className="h-4 w-4 mr-2" />Cancel
+                            </Button>
+                            <Button variant="destructive" onClick={() => { updateItemsWithHistory([]); setIsClearModalOpen(false); }}>
+                                <Eraser className="h-4 w-4 mr-2" />Clear
+                            </Button>
                         </div>
                     </DialogFooter>
                 </DialogContent>
