@@ -1,17 +1,16 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { 
-    Plus, 
-    Minus, 
-    Undo, 
-    Redo, 
-    Eraser, 
-    Save, 
-    Pencil, 
-    Trash2, 
-    ShoppingBag, 
-    ShoppingBasket,
+import {
+    Plus,
+    Minus,
+    Undo,
+    Redo,
+    Eraser,
+    Save,
+    Pencil,
+    Trash2,
+    ShoppingBag,
     PhilippinePeso,
     X
 } from 'lucide-react'
@@ -97,15 +96,6 @@ export default function GroceryMonitor() {
 
     return (
         <div className="min-h-screen flex flex-col bg-gray-100">
-            {/* Sticky Header */}
-            <header className="sticky top-0 bg-white shadow-md p-4 flex justify-between items-center z-10">
-                <h1 className="text-md font-bold text-primary flex items-center"><ShoppingBasket className='mr-2' /> Basket Monitor</h1>
-                <div className="space-x-2">
-                    <Button variant="outline" size="sm">Login</Button>
-                    <Button size="sm">Sign Up</Button>
-                </div>
-            </header>
-
             {/* Main Content */}
             <main className="flex flex-col flex-grow p-4 overflow-y-auto relative">
                 {/* Quick Action Buttons */}
@@ -185,7 +175,7 @@ export default function GroceryMonitor() {
                     <DialogHeader>
                         <DialogTitle><ShoppingBag className="h-5 mr-2" /> Add New Item</DialogTitle>
                     </DialogHeader>
-                    
+
                     <div className="grid grid-cols-1 @xs:grid-cols-4 @lg:grid-cols-6 gap-2">
                         <div className='@xs:col-span-full @lg:col-span-2'>
                             <label htmlFor="" className='text-[10px] uppercase font-bold ml-[2px] mb-2 inline-block'>Item Name</label>
@@ -279,10 +269,10 @@ export default function GroceryMonitor() {
                                     </div>
                                 </div>
                             </div>
-                            
+
                             {/* <div className="text-md flex flex-row items-center justify-between mt-2"> */}
                             <div className="col-span-full flex items-center justify-between">
-                                <span className='text-[10px] uppercase font-bold ml-[2px]'>Total:</span> 
+                                <span className='text-[10px] uppercase font-bold ml-[2px]'>Total:</span>
                                 <div className='flex items-center font-bold text-xl'>
                                     <PhilippinePeso className='h-4 w-4 mr-1' strokeWidth={2.5} /> {(editingItem.price * editingItem.quantity).toFixed(2)}
                                 </div>
