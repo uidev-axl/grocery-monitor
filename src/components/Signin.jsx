@@ -12,9 +12,8 @@ import {
 
 const Signin = () => {
     return (
-        <>
             <Drawer>
-                <DrawerTrigger asChild>
+                 <DrawerTrigger asChild>
                     asdf
                     <Button variant="outline" size="sm">Login</Button>
                 </DrawerTrigger>
@@ -36,7 +35,6 @@ const Signin = () => {
                     </div>
                 </DrawerContent>
             </Drawer>
-        </>
     )
 }
 

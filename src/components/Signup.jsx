@@ -12,7 +12,6 @@ import {
 
 const Signup = () => {
     return (
-        <>
             <Drawer>
                 <DrawerTrigger asChild>
                     asdf
@@ -36,7 +35,6 @@ const Signup = () => {
                     </div>
                 </DrawerContent>
             </Drawer>
-        </>
     )
 }
 
