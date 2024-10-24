@@ -77,7 +77,7 @@ const Signin = () => {
                     <DrawerFooter className="inset-x-0 w-32 mx-auto !mt-0 mb-4">
                         <DrawerClose asChild>
                             <div className="flex flex-col items-center justify-center cursor-pointer">
-                                Close
+                                <small className="uppercase text-xs text-muted-foreground">Close</small>
                                 <ChevronsDown className="motion-safe:animate-bounce mt-2" />
                             </div>
                         </DrawerClose>
