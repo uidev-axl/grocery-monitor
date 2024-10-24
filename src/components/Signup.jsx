@@ -12,29 +12,28 @@ import {
 
 const Signup = () => {
     return (
-            <Drawer>
-                <DrawerTrigger asChild>
-                    asdf
-                    <Button size="sm">Sign Up</Button>
-                </DrawerTrigger>
-                <DrawerContent>
-                    <div className="mx-auto w-full max-w-sm">
-                        <DrawerHeader>
-                            <DrawerTitle>Move Goal</DrawerTitle>
-                            <DrawerDescription>Set your daily activity goal.</DrawerDescription>
-                        </DrawerHeader>
-
-                        Test drawer
-
-                        <DrawerFooter>
-                            <Button>Submit</Button>
-                            <DrawerClose asChild>
-                                <Button variant="outline">Cancel</Button>
-                            </DrawerClose>
-                        </DrawerFooter>
-                    </div>
-                </DrawerContent>
-            </Drawer>
+        <Drawer>
+            <DrawerTrigger asChild>
+                <Button size="sm">Sign Up</Button>
+            </DrawerTrigger>
+            <DrawerContent>
+                <div className="mx-auto w-full px-6">
+                    <DrawerHeader>
+                        <DrawerTitle>Move Goal</DrawerTitle>
+                        <DrawerDescription>Set your daily activity goal.</DrawerDescription>
+                    </DrawerHeader>
+                    
+                    Signup drawer
+                    
+                    <DrawerFooter>
+                        <Button>Submit</Button>
+                        <DrawerClose asChild>
+                            <Button variant="outline">Cancel</Button>
+                        </DrawerClose>
+                    </DrawerFooter>
+                </div>
+            </DrawerContent>
+        </Drawer>
     )
 }
 
