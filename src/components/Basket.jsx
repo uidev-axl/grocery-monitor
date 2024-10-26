@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 import {
     Plus,
     Minus,
@@ -41,6 +43,7 @@ export default function GroceryMonitor() {
     const [isClearModalOpen, setIsClearModalOpen] = useState(false)
     const [history, setHistory] = useState([])
     const [future, setFuture] = useState([])
+    const { toast } = useToast()
 
     const updateItemsWithHistory = useCallback((newItems) => {
         setHistory(prev => [...prev, items])
@@ -51,6 +54,14 @@ export default function GroceryMonitor() {
     const addItem = useCallback(() => {
         if (newItem.name && newItem.price > 0 && newItem.quantity > 0) {
             updateItemsWithHistory([...items, { ...newItem, id: Date.now() }])
+            toast({
+                title: `Item added: ${newItem.name} `,
+                description: <small className='text-muted-foreground text-xs'><strong>Price:</strong> PHP{newItem.price} (x{newItem.quantity})</small>,
+                duration: 3500,
+                action: (
+                    <ToastAction altText="Close"><small>Close</small></ToastAction>
+                ),
+            })
             setNewItem({ name: '', price: 0, quantity: 1 })
             setIsAddModalOpen(false);
         }
@@ -63,14 +74,32 @@ export default function GroceryMonitor() {
     }, [items, updateItemsWithHistory])
 
     const deleteItem = useCallback((id) => {
+        const item = items.filter(item => item.id === id)[0];
+
         updateItemsWithHistory(items.filter(item => item.id !== id))
+        toast({
+                title: `Item deleted: ${item.name} `,
+                description: <small className='text-muted-foreground text-xs'><strong>Price:</strong> PHP{item.price} (x{item.quantity})</small>,
+                duration: 3500,
+                action: (
+                    <ToastAction altText="Close"><small>Close</small></ToastAction>
+                ),
+            })
         setIsEditModalOpen(false)
     }, [items, updateItemsWithHistory])
 
     const saveEditedItem = useCallback(() => {
         if (editingItem) {
             updateItemsWithHistory(items.map(item => item.id === editingItem.id ? editingItem : item))
-            setIsEditModalOpen(false)
+            toast({
+                title: `Item updated: ${editingItem.name} `,
+                description: <small className='text-muted-foreground text-xs'><strong>Price:</strong> PHP{editingItem.price} (x{editingItem.quantity})</small>,
+                duration: 3500,
+                action: (
+                    <ToastAction altText="Close"><small>Close</small></ToastAction>
+                ),
+            })
+            setIsEditModalOpen(false);
         }
     }, [editingItem, items, updateItemsWithHistory])
 

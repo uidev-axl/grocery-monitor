@@ -1,6 +1,7 @@
 ---
 import Basket from "@/components/Basket";
 import Header from "@/components/Header";
+import { Toaster } from "@/components/ui/toaster";
 import "@/styles/globals.css";
 ---
 
@@ -15,5 +16,6 @@ import "@/styles/globals.css";
 	<body>
 		<Header client:load />
 		<Basket client:load />
+		<Toaster client:load />
 	</body>
 </html>
