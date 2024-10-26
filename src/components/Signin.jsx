@@ -14,16 +14,16 @@ import { SquareUserRound, ChevronsDown } from "lucide-react"
 import SocialAuths from "./SocialAuths"
 import RememberMe from "./RememberMe"
 
-const Signin = () => {
+const Signin = ({ isOpen, setIsOpen, openSignup }) => {
     return (
         <>
-            <Drawer>
+            <Drawer open={isOpen} onOpenChange={setIsOpen}>
                 <DrawerTrigger asChild>
                     <Button variant="outline" size="sm">Login</Button>
                 </DrawerTrigger>
 
                 <DrawerContent>
-                    <div className="mx-auto w-full max-w-[90%] px-6 my-8 h-full flex flex-col items-center justify-center">
+                    <div className="mx-auto w-full max-w-[90%] px-6 my-4 h-full flex flex-col items-center justify-center">
                         <DrawerHeader>
                             <DrawerTitle className="flex items-center justify-center">
                                 <SquareUserRound className="mr-2" /> Login
@@ -47,7 +47,7 @@ const Signin = () => {
                                     </div>
                                 </div>
 
-                                <div className="grid gap-y-3">
+                                <div className="grid gap-y-2">
                                     {/* Remember */}
                                     <div className=""><RememberMe htmlFor="remember" /></div>
 
@@ -56,21 +56,21 @@ const Signin = () => {
                                     
                                     {/* Signup / Register */}
                                     <div className="text-sm text-center text-muted-foreground">
-                                        Don't have an account yet? <a href="#" className="cursor-pointer text-blue-500 focus:text-blue-900 transition-colors">Register here.</a>
+                                        Don't have an account yet? <a href="#" onClick={openSignup} className="cursor-pointer text-blue-500 focus:text-blue-900 transition-colors">Register.</a>
                                     </div>
                                 </div>
                             </form>
 
-                            <hr className="my-4" />
+                            <hr className="my-2" />
 
                             {/* Social auth */}
-                            <div className="w-full grid gap-y-4 text-center">
+                            <div className="w-full grid gap-y-2 text-center">
                                 <div className="text-sm text-muted-foreground">Or login with</div>
                                 <div className="grid gap-y-2"><SocialAuths /></div>
-                                
-                                {/* Remember */}
-                                <div className="flex justify-center"><RememberMe htmlFor="remember-social" /></div>
                             </div>
+                            
+                            {/* Remember */}
+                            <div className="mt-3 flex justify-center"><RememberMe htmlFor="remember-social" /></div>
                         </div>
                     </div>
                     
