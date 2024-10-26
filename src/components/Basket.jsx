@@ -98,15 +98,16 @@ export default function GroceryMonitor() {
         <div className="min-h-screen flex flex-col bg-gray-100">
             {/* Main Content */}
             <main className="flex flex-col flex-grow p-4 overflow-y-auto relative">
+
                 {/* Quick Action Buttons */}
-                <div className="flex flex-row justify-end mb-4 gap-x-2 fixed bottom-16 right-4">
-                    <Button className='w-10 h-10 rounded-full' variant="outline" size="sm" onClick={undo} disabled={history.length === 0}>
+                <div className="flex flex-row items-center justify-end mb-4 gap-x-2 fixed bottom-16 right-4">
+                    <Button className='w-10 h-10 rounded-full transition-all' variant="outline" size="sm" onClick={undo} disabled={history.length === 0}>
                         <Undo className="h-3 w-3" />
                     </Button>
                     <Button className='w-10 h-10 rounded-full' variant="outline" size="sm" onClick={redo} disabled={future.length === 0}>
                         <Redo className="h-3 w-3" />
                     </Button>
-                    <Button className='w-10 h-10 rounded-full' size="sm" onClick={() => setIsAddModalOpen(true)}>
+                    <Button className='w-12 h-12 rounded-full transition-all' size="sm" onClick={() => setIsAddModalOpen(true)}>
                         <Plus className="h-4 w-4" />
                     </Button>
                 </div>
@@ -270,7 +271,6 @@ export default function GroceryMonitor() {
                                 </div>
                             </div>
 
-                            {/* <div className="text-md flex flex-row items-center justify-between mt-2"> */}
                             <div className="col-span-full flex items-center justify-between">
                                 <span className='text-[10px] uppercase font-bold ml-[2px]'>Total:</span>
                                 <div className='flex items-center font-bold text-xl'>
