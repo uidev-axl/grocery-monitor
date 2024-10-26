@@ -9,13 +9,11 @@ const Header = () => {
     const [isSignupOpen, setIsSignupOpen] = useState(false);
 
     const openLogin = () => {
-        console.log('opening login');
         setIsLoginOpen((prev) => !prev);
         setIsSignupOpen(() => false);
     }
 
     const openSignup = () => {
-        console.log('opening signup');
         setIsSignupOpen((prev) => !prev);
         setIsLoginOpen(() => false);
     }
