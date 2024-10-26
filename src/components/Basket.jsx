@@ -56,7 +56,6 @@ export default function GroceryMonitor() {
             updateItemsWithHistory([...items, { ...newItem, id: Date.now() }])
             toast({
                 title: `Item added: ${newItem.name} `,
-                description: <small className='text-muted-foreground text-xs'><strong>Price:</strong> PHP{newItem.price} (x{newItem.quantity})</small>,
                 duration: 3500,
                 action: (
                     <ToastAction altText="Close"><small>Close</small></ToastAction>
@@ -79,7 +78,6 @@ export default function GroceryMonitor() {
         updateItemsWithHistory(items.filter(item => item.id !== id))
         toast({
                 title: `Item deleted: ${item.name} `,
-                description: <small className='text-muted-foreground text-xs'><strong>Price:</strong> PHP{item.price} (x{item.quantity})</small>,
                 duration: 3500,
                 action: (
                     <ToastAction altText="Close"><small>Close</small></ToastAction>
@@ -93,7 +91,6 @@ export default function GroceryMonitor() {
             updateItemsWithHistory(items.map(item => item.id === editingItem.id ? editingItem : item))
             toast({
                 title: `Item updated: ${editingItem.name} `,
-                description: <small className='text-muted-foreground text-xs'><strong>Price:</strong> PHP{editingItem.price} (x{editingItem.quantity})</small>,
                 duration: 3500,
                 action: (
                     <ToastAction altText="Close"><small>Close</small></ToastAction>
@@ -120,6 +117,19 @@ export default function GroceryMonitor() {
             setFuture(prev => prev.slice(1))
         }
     }, [future, items])
+
+    const clearItems = () => {
+        console.log('cleared()'); // FIXME
+        updateItemsWithHistory([]);
+        toast({
+            title: `Items cleared!`,
+            duration: 3500,
+            action: (
+                <ToastAction altText="Close"><small>Close</small></ToastAction>
+            ),
+        })
+        setIsClearModalOpen(false);
+    }
 
     const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
@@ -333,7 +343,7 @@ export default function GroceryMonitor() {
                             <Button variant="outline" onClick={() => setIsClearModalOpen(false)}>
                                 <X className="h-4 w-4 mr-2" />Cancel
                             </Button>
-                            <Button variant="destructive" onClick={() => { updateItemsWithHistory([]); setIsClearModalOpen(false); }}>
+                            <Button variant="destructive" onClick={clearItems}>
                                 <Eraser className="h-4 w-4 mr-2" />Clear
                             </Button>
                         </div>
