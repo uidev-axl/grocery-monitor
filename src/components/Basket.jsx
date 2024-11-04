@@ -119,7 +119,6 @@ export default function GroceryMonitor() {
     }, [future, items])
 
     const clearItems = () => {
-        console.log('cleared()'); // FIXME
         updateItemsWithHistory([]);
         toast({
             title: `Items cleared!`,
