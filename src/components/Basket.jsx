@@ -50,7 +50,7 @@ export default function GroceryMonitor() {
     const updateItemsWithHistory = useCallback((newItems) => {
         setHistory(prev => [...prev, items])
         setFuture([])
-        lsSetItems(newItems); // FIXME
+        lsSetItems(newItems);
     }, [items])
 
     const addItem = useCallback(() => {
