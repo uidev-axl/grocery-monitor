@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from "react"
+import { useBasketStore } from "@/stores/basket-store"
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import {
@@ -28,14 +29,10 @@ import {
 
 export default function GroceryMonitor() {
 
-    /**
-     * TODO: Set the following localStorage
-     * 1. basketHistory
-     * 1. basketFuture
-     * 2. basketState
-     */
+    const lsItems = useBasketStore(state => state.items)
+    const lsSetItems = useBasketStore(state => state.setItems)
 
-    const [items, setItems] = useState([])
+    const [items, setItems] = useState(lsItems)
     const [newItem, setNewItem] = useState({ name: '', price: 0, quantity: 1 })
     const [editingItem, setEditingItem] = useState(null)
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -45,10 +42,15 @@ export default function GroceryMonitor() {
     const [future, setFuture] = useState([])
     const { toast } = useToast()
 
+    // Update items from localStorage
+    useEffect(() => {
+        setItems(prev => lsItems);
+    }, [lsItems])
+    
     const updateItemsWithHistory = useCallback((newItems) => {
         setHistory(prev => [...prev, items])
-        setItems(newItems)
         setFuture([])
+        lsSetItems(newItems); // FIXME
     }, [items])
 
     const addItem = useCallback(() => {
