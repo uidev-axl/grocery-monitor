@@ -1,3 +1,8 @@
+# Site URL (ongoing development)
+`https://basket-monitor.vercel.app/`
+
+---
+
 # Astro Starter Kit: Minimal
 
 ```sh
